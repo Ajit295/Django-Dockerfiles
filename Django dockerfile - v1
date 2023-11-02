@@ -1,0 +1,21 @@
+FROM ubuntu
+
+RUN apt-get update
+
+RUN apt-get install -y python3-pip
+
+RUN pip3 install virtualenv
+
+RUN python3 -m virtualenv Env
+
+RUN /bin/bash -c 'source Env/bin/activate'
+
+RUN pip3 install django
+
+RUN pip3 install tzdata
+
+RUN django-admin startproject myapp
+
+RUN cd myapp
+
+CMD ["python3", "myapp/manage.py", "runserver", "0.0.0.0:8000"]
